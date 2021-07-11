@@ -16,6 +16,7 @@
 
 <script>
 import axios from 'axios'
+import { baseApiUrl } from '../../../global'
 
 export default {
     data() {
@@ -34,7 +35,7 @@ export default {
         getUsers() {
             axios({
                 method: 'GET',
-                url: `http://localhost:3006/users`
+                url: `${baseApiUrl}/users`
             })
             .then(res => {
                 res

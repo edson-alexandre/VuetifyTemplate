@@ -63,6 +63,7 @@
 <script>
 import axios from 'axios'
 import FormData from 'form-data'
+import { baseApiUrl } from '../../../global'
 
 export default {
     data() {
@@ -86,7 +87,7 @@ export default {
         getFileList() {
             axios({
                 method: 'GET',
-                url: `http://localhost:3006/userfilename/${this.user.id}`
+                url: `${baseApiUrl}/userfilename/${this.user.id}`
             })
             .then(res => { 
                 this.fileList = res.data
@@ -95,7 +96,7 @@ export default {
         getFile(fileName) {
             axios({
                 method: 'GET',
-                url: `http://localhost:3006/userfile/${this.user.id}?fileName=${fileName}`,
+                url: `${baseApiUrl}/userfile/${this.user.id}?fileName=${fileName}`,
                 responseType:'blob'
             })
             .then(res => { 
@@ -115,7 +116,7 @@ export default {
             })            
             axios({
                 method: 'POST',
-                url: `http://localhost:3006/userfiles/${this.user.id}`,
+                url: `${baseApiUrl}/userfiles/${this.user.id}`,
                 headers: {
                      'Content-Type': 'multipart/form-data'
                 },
@@ -136,7 +137,7 @@ export default {
         async getUser() {            
             await axios({
                 method: 'get',
-                url: `http://localhost:3006/users/${this.$route.params.id}`
+                url: `${baseApiUrl}/users/${this.$route.params.id}`
             })
             .then(res => {
                 if(res.data) this.user=res.data 
@@ -150,7 +151,7 @@ export default {
             }      
             axios({
                 method: this.$route.params.id==0 ? 'POST' : 'PATCH',
-                url: this.$route.params.id==0 ? `http://localhost:3006/users` : `http://localhost:3006/users/${this.user.id}`,                
+                url: this.$route.params.id==0 ? `${baseApiUrl}/users` : `${baseApiUrl}/users/${this.user.id}`,                
                 data: this.user
             })
             .then( res => {
